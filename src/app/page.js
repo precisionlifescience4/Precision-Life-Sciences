@@ -1,69 +1,244 @@
-import Image from "next/image";
+'use client';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/services').then(r => r.json()).then(setServices);
+  }, []);
+
+  const colorMap = {
+    hbv: { border: 'border-hbv', text: 'text-hbv', bg: 'bg-hbv' },
+    hcv: { border: 'border-hcv', text: 'text-hcv', bg: 'bg-hcv' },
+    hiv: { border: 'border-hiv', text: 'text-hiv', bg: 'bg-hiv' },
+    flu: { border: 'border-flu', text: 'text-flu', bg: 'bg-flu' },
+    cchf: { border: 'border-cchf', text: 'text-cchf', bg: 'bg-cchf' },
+    navy: { border: 'border-navy', text: 'text-navy', bg: 'bg-navy' },
+  };
+
+  const stats = [
+    { value: '5', label: 'PCR Assays' },
+    { value: '100%', label: 'Locally Developed' },
+    { value: '3+', label: 'Institutional Partners' },
+    { value: '24/7', label: 'Technical Support' },
+  ];
+
+  const capabilities = [
+    { title: 'Molecular Assay Development', desc: 'End-to-end design and validation of real-time PCR assays.' },
+    { title: 'Diagnostic Product Development', desc: 'From concept to a manufactured, field-ready kit.' },
+    { title: 'Laboratory Implementation', desc: 'Hands-on guidance to bring assays into routine use.' },
+    { title: 'Local Technical Support', desc: 'Direct, accessible support for laboratories and partners.' },
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.js
-            </code>{" "}
-            file.
+    <main className="overflow-hidden">
+      {/* HERO */}
+      <section className="relative bg-navy text-white pt-28 pb-32 px-4 text-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-navylight opacity-95" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyan/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-hiv/10 rounded-full blur-3xl" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="relative z-10"
+        >
+        
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
+            Mugen-<span className="text-cyan">Plex</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-cyan text-lg md:text-xl font-semibold mb-3 tracking-wide">
+            REAL-TIME PCR ASSAY PORTFOLIO
           </p>
+          <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
+            Five viral assays engineered as one coherent, colour-coded product family —
+            built by <span className="text-white font-medium">Precision Life Sciences (Private) Limited</span> for
+            laboratories that demand accuracy and consistency.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 mt-10">
+            <Link
+              href="/services"
+              className="bg-cyan text-navy px-8 py-4 rounded-full font-bold shadow-lg shadow-cyan/30 hover:shadow-cyan/50 hover:scale-105 transition-all"
+            >
+              Explore the Portfolio
+            </Link>
+            <Link
+              href="/contact"
+              className="border border-white/40 px-8 py-4 rounded-full font-bold hover:bg-white hover:text-navy transition-all"
+            >
+              Commercial Enquiry
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* Assay color strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="relative z-10 flex flex-wrap justify-center gap-x-8 gap-y-3 mt-16 text-sm font-semibold tracking-wide"
+        >
+          {[
+            { n: 'HBV', c: 'bg-hbv' },
+            { n: 'HCV', c: 'bg-hcv' },
+            { n: 'HIV', c: 'bg-hiv' },
+            { n: 'INFLUENZA A&B', c: 'bg-flu' },
+            { n: 'CCHF', c: 'bg-cchf' },
+          ].map((a) => (
+            <span key={a.n} className="flex items-center gap-2 text-gray-200">
+              <span className={`w-2.5 h-2.5 rounded-full ${a.c}`} />
+              {a.n}
+            </span>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* STATS BAR */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <p className="text-4xl font-extrabold text-navy">{s.value}</p>
+              <p className="text-sm text-gray-500 mt-1 tracking-wide">{s.label}</p>
+            </motion.div>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* PRODUCT PORTFOLIO */}
+      <section className="max-w-6xl mx-auto px-4 py-24">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+      
+          <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
+            One Family. Five Assays. Total Consistency.
+          </h2>
+          <p className="text-gray-500 max-w-xl mx-auto mt-4">
+            Every Mugen-Plex kit shares the same reagent structure, control sets and packaging —
+            distinguished only by its assay-specific colour.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {services?.filter(s => s.slug !== 'support').map((s, i) => {
+            const c = colorMap[s.color] || colorMap.navy;
+            return (
+              <motion.div
+                key={s.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ y: -6 }}
+                className={`relative bg-white border-2 ${c.border} rounded-2xl p-7 shadow-sm hover:shadow-xl transition-shadow group`}
+              >
+                <div className={`absolute top-0 left-0 right-0 h-1.5 rounded-t-2xl ${c.bg}`} />
+                <span className={`inline-block text-xs font-bold tracking-widest uppercase ${c.text} mb-3`}>
+                  {s.slug}
+                </span>
+                <h3 className="font-bold text-navy text-lg mb-2 leading-snug">{s.name}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
+                <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                  <span className="text-xs font-semibold text-gray-400">{s.price}</span>
+                  <Link href="/services" className={`text-xs font-bold ${c.text} group-hover:translate-x-1 transition-transform inline-block`}>
+                    Learn more →
+                  </Link>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* CAPABILITIES */}
+      <section className="bg-graybg py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+          
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
+              Full-Cycle Diagnostic Capability
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {capabilities.map((cap, i) => (
+              <motion.div
+                key={cap.title}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white rounded-xl p-6 flex gap-4 items-start shadow-sm hover:shadow-md transition-shadow"
+              >
+                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan/10 text-cyan font-extrabold flex items-center justify-center">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3 className="font-bold text-navy mb-1">{cap.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{cap.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY CHOOSE US */}
+      <section className="max-w-5xl mx-auto px-4 py-24 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Why Precision Life Sciences</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2 mb-6">
+            Practical Science. Reliable Support.
+          </h2>
+          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            A clear five-assay product portfolio, consistent kit presentation, distinct colour coding,
+            complete control sets, locally developed solutions and accessible technical support —
+            backed by collaboration with KMU, BQ Pharma and DGST.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* CTA BANNER */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="bg-navy text-white text-center py-20 px-4"
+      >
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to bring Mugen-Plex to your lab?</h2>
+        <p className="text-gray-300 max-w-xl mx-auto mb-8">
+          Get in touch for pricing, distribution enquiries or technical collaboration.
+        </p>
+        <Link
+          href="/contact"
+          className="bg-cyan text-navy px-8 py-4 rounded-full font-bold shadow-lg shadow-cyan/30 hover:scale-105 transition-transform inline-block"
+        >
+          Contact Our Team
+        </Link>
+      </motion.section>
+    </main>
   );
 }
