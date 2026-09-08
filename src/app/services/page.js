@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import FAQ from '@/components/FAQ';
 
 export default function Services() {
   const [services, setServices] = useState([]);
@@ -43,10 +44,12 @@ export default function Services() {
         ))}
       </div>
 
-      <p className="text-center text-xs text-gray-400 mt-12">
+          <p className="text-center text-xs text-gray-400 mt-12">
         Product images and specifications are currently presented for research use only.
         Final regulatory wording must be confirmed before publication.
       </p>
+
+      <FAQ />
     </main>
   );
 }
