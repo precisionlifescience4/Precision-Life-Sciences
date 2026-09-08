@@ -18,6 +18,7 @@ export default function Services() {
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
         className="text-4xl font-bold text-navy mb-2 text-center"
       >
         Mugen-Plex Portfolio & Services
@@ -31,7 +32,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
+            transition={{ delay: i * 0.12, duration: 0.6, ease: 'easeOut' }}
             whileHover={{ scale: 1.02 }}
             className={`border-t-4 ${colorMap[s.color]} bg-graybg rounded-xl p-6 shadow-sm`}
           >

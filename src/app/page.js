@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
@@ -44,10 +45,10 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 1.1, ease: 'easeOut' }}
           className="relative z-10"
         >
-        
+      
           <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
             Mugen-<span className="text-cyan">Plex</span>
           </h1>
@@ -55,9 +56,8 @@ export default function Home() {
             REAL-TIME PCR ASSAY PORTFOLIO
           </p>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
-            Five viral assays engineered as one coherent, colour-coded product family —
-            built by <span className="text-white font-medium">Precision Life Sciences (Private) Limited</span> for
-            laboratories that demand accuracy and consistency.
+            Precision-engineered real-time PCR assays — trusted by laboratories across Pakistan for
+            accurate, consistent molecular diagnostics.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-10">
             <Link
@@ -79,7 +79,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.9, ease: 'easeOut' }}
           className="relative z-10 flex flex-wrap justify-center gap-x-8 gap-y-3 mt-16 text-sm font-semibold tracking-wide"
         >
           {[
@@ -97,6 +97,25 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* PRODUCT LINEUP IMAGE */}
+      <section className="bg-white py-16 px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-gray-100"
+        >
+          <Image
+            src="/images/product-lineup.png"
+            alt="Mugen-Plex Real-Time PCR Assay Lineup — HBV, HCV, HIV, Influenza A&B, CCHF"
+            width={1536}
+            height={670}
+            className="w-full h-auto"
+          />
+        </motion.div>
+      </section>
+
       {/* STATS BAR */}
       <section className="bg-white border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -106,7 +125,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.15, duration: 0.6, ease: 'easeOut' }}
             >
               <p className="text-4xl font-extrabold text-navy">{s.value}</p>
               <p className="text-sm text-gray-500 mt-1 tracking-wide">{s.label}</p>
@@ -123,7 +142,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-      
+        
           <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
             One Family. Five Assays. Total Consistency.
           </h2>
@@ -142,7 +161,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.7, delay: i * 0.15, ease: 'easeOut' }}
                 whileHover={{ y: -6 }}
                 className={`relative bg-white border-2 ${c.border} rounded-2xl p-7 shadow-sm hover:shadow-xl transition-shadow group`}
               >
@@ -173,7 +192,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-          
+        
             <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
               Full-Cycle Diagnostic Capability
             </h2>
@@ -186,7 +205,7 @@ export default function Home() {
                 initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.15, duration: 0.7, ease: 'easeOut' }}
                 className="bg-white rounded-xl p-6 flex gap-4 items-start shadow-sm hover:shadow-md transition-shadow"
               >
                 <span className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan/10 text-cyan font-extrabold flex items-center justify-center">
@@ -215,9 +234,13 @@ export default function Home() {
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
             A clear five-assay product portfolio, consistent kit presentation, distinct colour coding,
-            complete control sets, locally developed solutions and accessible technical support —
-            backed by collaboration with KMU, BQ Pharma and DGST.
+            complete control sets, locally developed solutions and accessible technical support.
           </p>
+          <div className="flex items-center justify-center gap-10 mt-10 flex-wrap opacity-80">
+            <Image src="/images/partner-kmu.png" alt="KMU" width={90} height={45} className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+            <Image src="/images/partner-bq.png" alt="BQ Pharma" width={100} height={45} className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+            <Image src="/images/partner-dgst.png" alt="DGST" width={90} height={90} className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+          </div>
         </motion.div>
       </section>
 
